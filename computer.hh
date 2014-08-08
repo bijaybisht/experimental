@@ -1,14 +1,19 @@
 #pragma once
 
 #include <list>
+#include <string>
 
 #include "resource.hh"
 #include "job.hh"
+#include "window.hh"
 
 class Computer {
 public:
     
-    Computer(unsigned int num_resources): _longest(0), _available(num_resources) {
+    Computer(unsigned int num_resources): _longest(0), _available(num_resources), _resources() {
+        static unsigned int id;
+        _id = ++id;
+        //std::cout << "id " << _id << std::endl;
         unsigned int num = num_resources;
         while (num--) _resources.push_back(new Resource());
     }
@@ -17,11 +22,20 @@ public:
         _available = 0;
         unsigned int used = 0;
         std::list<Resource*>::iterator it;
+
+        Window::coloron(_id);
+
         for (it = _resources.begin(); it != _resources.end(); it++) {
             Resource *r = *it;
+
+            Window::plot( _id + r->id , r->load());
+
             used += r->clock();
             if (r->load() == 0) ++_available;
         }
+
+        Window::coloroff(_id);
+
         _longest?--_longest:0;
         return used;
     }
@@ -49,6 +63,7 @@ public:
     unsigned int longest() { return _longest; }
     unsigned int available() { return _available; }
 
+    unsigned int _id;
 private:
     unsigned int _longest;
     unsigned int _available;

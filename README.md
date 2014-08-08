@@ -38,3 +38,5 @@ total: 86762| capacity available: 43| work done : 84| jobs_queue : 14| queue : 4
 6. There are a few knobs avaialble to control the job generation and scheduling. (Not configurable though).
 
 7. The scheduling algorithm aims to maximize the throughput while controlling the starvation.
+
+8. Added a dynamic ui using curses.

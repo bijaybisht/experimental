@@ -1,9 +1,11 @@
 #include <iostream>
+#include <curses.h>
 
 #include "job.hh"
 #include "user.hh"
 #include "computer.hh"
 #include "scheduler.hh"
+#include "window.hh"
 
 int main (int argc, char **argv)
 {
@@ -11,9 +13,10 @@ int main (int argc, char **argv)
     uint no_of_resources = 10;
     uint max_steps = 10;
     uint duration = 1000;
+
     Computer *computers[no_of_computers];
 
-    std::cout << "Simulator Output: " << std::endl;
+    //std::cout << "Simulator Output: " << std::endl;
 
     for (int i=0; i < no_of_computers; i++) {
         computers[i] = new Computer(no_of_resources);
